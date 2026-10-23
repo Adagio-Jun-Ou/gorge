@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gorge"
+version = "0.1.0"
+description = "Eat entire drives at once: phase data directly into model weights (one-shot associative memory, no tool reading)."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+inr = ["torch"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+gorge = "gorge.cli:main"
+
+[tool.setuptools]
+packages = ["gorge"]

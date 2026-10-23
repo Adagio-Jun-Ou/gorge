@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GORGE — watch a drive get eaten</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="wordmark">GORGE</div>
+  <div class="tagline">eat a drive in one pass &middot; phase it into weights &middot; ask the weights — never re-read the files</div>
+  <div id="parityBadge" class="badge checking">checking engine parity&hellip;</div>
+</header>
+
+<main>
+
+  <!-- ============ 1 · THE DRIVE ============ -->
+  <section class="panel" id="drivePanel">
+    <h2><span class="stepnum">1</span> the drive <span class="subtitle">read exactly once, streaming</span></h2>
+    <div id="fileTree"></div>
+    <div id="dropZone">
+      <div id="dropHint">drop real files from your machine here<br><span class="mini">or click to pick — up to 2&nbsp;MB each, ingested for real</span></div>
+      <input type="file" id="fileInput" multiple hidden>
+    </div>
+    <div class="controls">
+      <button id="feedBtn" class="primary">&#9889; feed the model</button>
+      <button id="stressBtn" class="ghost">stress-feed 30 files</button>
+      <button id="resetBtn" class="ghost">&#8635; reset</button>
+    </div>
+    <div id="caption" class="caption">a synthetic drive is loaded. feed it and watch the bytes become weights.</div>
+  </section>
+
+  <!-- ============ 2 · THE WEIGHT FIELD ============ -->
+  <section class="panel" id="fieldPanel">
+    <h2><span class="stepnum">2</span> the weight field <span class="subtitle">W &mdash; built by outer products, no gradient descent</span></h2>
+    <div class="fieldWrap">
+      <canvas id="fieldCanvas" width="512" height="512"></canvas>
+      <div class="fieldOverlay" id="fieldMeta">dim 128 &middot; 0 params</div>
+    </div>
+    <h3 class="subhead">engram constellation <span class="subtitle">each dot = one 4&nbsp;KB bundle phased into the field</span></h3>
+    <canvas id="constCanvas" width="640" height="300"></canvas>
+    <div class="gauge">
+      <div class="gaugeTrack">
+        <div id="gaugeFill"></div>
+        <div class="gaugeMark" style="left:20%"></div>
+      </div>
+      <div id="gaugeLabel" class="gaugeLabel">load —</div>
+    </div>
+  </section>
+
+  <!-- ============ 3 · PROBE ============ -->
+  <section class="panel" id="probePanel">
+    <h2><span class="stepnum">3</span> probe the weights <span class="subtitle">no file is opened to answer</span></h2>
+    <div class="probeRow">
+      <input id="probeText" placeholder='type any string, e.g. "launch key"' spellcheck="false">
+      <button id="probeBtn" class="primary">probe</button>
+    </div>
+    <div class="chips">
+      <button class="chip" data-probe="marker">secret string</button>
+      <button class="chip" data-probe="code">code identifier</button>
+      <button class="chip" data-probe="csv">csv field</button>
+      <button class="chip" data-probe="png">raw bytes @9K of the PNG</button>
+      <button class="chip" data-probe="noise">random noise</button>
+    </div>
+    <div id="probeResults"></div>
+    <div class="burnRow">
+      <button id="burnBtn" class="danger" disabled>&#128293; burn the phase cache (weights-only mode)</button>
+      <span class="mini" id="burnNote">after burning, only W and W<sub>v</sub> can answer</span>
+    </div>
+
+    <h3 class="subhead">bonus: bytes &rarr; weights, literally</h3>
+    <div class="memorizer">
+      <div class="memHead">96 bytes of a marker string, fitted into a tiny network&rsquo;s parameters by gradient descent</div>
+      <div class="memStrips">
+        <div class="memStripLabel">target bytes</div>
+        <canvas id="memTarget" width="480" height="14"></canvas>
+        <div class="memStripLabel">recalled from weights</div>
+        <canvas id="memPred" width="480" height="14"></canvas>
+      </div>
+      <div class="memRow">
+        <button id="memBtn" class="ghost">&#9654; memorize</button>
+        <span id="memStats" class="mono">idle</span>
+      </div>
+      <canvas id="memLoss" width="480" height="40"></canvas>
+      <div class="mini">notice: phasing the whole drive above took <b>one pass</b>; memorizing these 96 bytes takes <b>hundreds of gradient steps</b>. that asymmetry is the physics of stuffing information into parameters.</div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="statBar">
+  <div class="stat"><b id="statFiles">0</b> files</div>
+  <div class="stat"><b id="statBytes">0 B</b> eaten</div>
+  <div class="stat"><b id="statBundles">0</b> bundles</div>
+  <div class="stat"><b id="statEngrams">0</b> engrams</div>
+  <div class="stat"><b id="statDup">0 B</b> deduped</div>
+  <div class="stat"><b id="statParams">0</b> params</div>
+  <div class="stat"><b id="statLoad">—</b> load</div>
+</footer>
+
+<script src="parity.js"></script>
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
